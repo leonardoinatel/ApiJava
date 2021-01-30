@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+// exemplo de requisicao post
+
+// {
+//   "email": "jao123@gmail.com"
+// }
+
 public class JogoController {
   @Autowired
   private UsuarioRepository usuarioRepository;
@@ -21,10 +27,12 @@ public class JogoController {
 
   @PostMapping("/fazerAposta")
   public Usuario fazerAposta(@RequestBody JogoRequest request) {
+    // aqui eu pensei em geral um array de numeros aleatorios
+    // e depois encapsular esse numero a a requisição e so depois salvar no banco
     return usuarioRepository.save(request.getUsuario());
   }
 
-  @GetMapping("/")
+  @GetMapping("/buscarAposta")
   public List<Usuario> findAllAposta() {
     return usuarioRepository.findAll();
   }
