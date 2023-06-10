@@ -2,27 +2,34 @@ package com.example.api.controller;
 
 import com.example.api.dto.NovoAutorRequest;
 import com.example.api.model.Autor;
+import com.example.api.repository.AutorRepository;
+import com.example.api.validator.UniqueEmail;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/autores")
 public class AutorController {
 
-    @PersistenceContext
-    private EntityManager manager;
+    @Autowired
+    private AutorRepository autorRepository;
+    @Autowired
+    private UniqueEmail uniqueEmail;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(uniqueEmail);
+    }
 
     @PostMapping
-    @Transactional
     public String postAutor(@RequestBody @Valid NovoAutorRequest request) {
         Autor autor = request.toModel();
-        manager.persist(autor);
+        autorRepository.save(autor);
         return autor.toString();
     }
 }
