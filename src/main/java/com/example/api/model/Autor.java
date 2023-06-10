@@ -1,9 +1,11 @@
 package com.example.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
+
+
 
 import java.time.LocalDateTime;
 
@@ -14,7 +16,7 @@ public class Autor {
     private @NotBlank String nome;
     private @NotBlank @Email String email;
     private @NotBlank @Size(max = 400) String descricao;
-    private LocalDateTime instanteCricacao = LocalDateTime.now();
+    private final LocalDateTime instanteCricacao = LocalDateTime.now();
 
     @Deprecated
     public Autor() {

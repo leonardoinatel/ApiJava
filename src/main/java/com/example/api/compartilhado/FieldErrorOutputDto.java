@@ -1,8 +1,8 @@
 package com.example.api.compartilhado;
 
 public class FieldErrorOutputDto {
-    private String field;
-    private String message;
+    private final String field;
+    private final String message;
 
     public FieldErrorOutputDto(String field, String message) {
         this.field = field;
