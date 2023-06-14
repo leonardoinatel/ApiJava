@@ -24,7 +24,7 @@ public class AutorController {
     }
 
     @PostMapping
-    public String postAutor(@RequestBody @Valid NovoAutorRequest request) {
+    public String addAutor(@RequestBody @Valid NovoAutorRequest request) {
         Autor autor = request.toModel();
         autorRepository.save(autor);
         return autor.toString();
